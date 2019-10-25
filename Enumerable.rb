@@ -37,6 +37,21 @@ module Enumerable
     end
   true
   end
+
+  def my_any?(param = nil)
+    if block_given?
+      my_each { |i| return true unless yield(i)}
+    elsif param.is_a? Class
+      my_each { |i| return true unless i.is_a? param}
+    elsif param.is_a? Regexp
+      my_each { |i| return true unless param =~ i }
+    elsif param.nil?
+      my_each { |i| return true unless i}
+    else
+      my_each {|i| return true unless i == param }
+    end
+  false
+  end
 end
 
 puts '---------------------------------------------'
@@ -71,21 +86,39 @@ end
 puts new_arr
 puts '---------'
 puts 'my_select -> no block given'
-puts [12.2, 13.4, 15.5, 16.9, 10.2].my_select
+puts [12.2, 13.4, 15.5, 16.9, 10.2].my_select 
 
 puts '---------------------------------------------'
-puts 'my_all -> whit block'
+puts 'my_all? -> whit block'
 arr = %w[Johnny Jack Jim Jonesy]
 new_arr =  arr.my_all? do |name|
   name[0] == 'J' 
 end
+puts new_arr      #=> true
 puts '---------'
-puts 'my_all -> regex given'
-puts %w[ant bear cat].all?(/t/)  
+puts 'my_all? -> regex given'
+puts %w[ant bear cat].all?(/t/)  #=> false
 puts '---------'
-puts 'my_all -> class given'
-puts [1, 2i, 3.14].all?(Numeric) 
+puts 'my_all? -> class given'
+puts [1, 2i, 3.14].all?(Numeric) #=> true
 puts '---------'
-puts 'my_all -> no parameter given'
-puts [nil, true, 99].all?  
-puts [].all? 
+puts 'my_all? -> no parameter given'
+puts [nil, true, 99].all?       #=> false
+puts [].all?                    #=> true
+
+puts '---------------------------------------------'
+puts 'my_any? -> whit block'
+arr = %w[Billy Alex Brooke Andrea Willard]
+new_arr = arr.my_any? do |name|
+  name.match(/Bi/) 
+end
+puts new_arr
+puts '---------'
+puts 'my_any? -> regex given'
+puts %w[ant bear cat].any?(/d/)       #=> false
+puts '---------'
+puts 'my_any? -> class given'
+puts [nil, true, 99].any?(Integer)    #=> true
+puts 'my_any? -> no parameter given'
+puts [nil, true, 99].any?             #=> true
+puts [].any?                          #=> false
