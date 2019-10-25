@@ -90,7 +90,23 @@ module Enumerable
 
   def my_inject(*args)
     arr = to_a.dup
-    if args[0]
+    if args[0].nil?
+      operation = arr.shift
+    elsif args[1].nil? && !block_given?
+      symbol = args[0]
+      operation = arr.shift
+    elsif args[1].nil? && block_given?
+      operation = args[0]
+    else
+      operation = args[0]
+      symbol = args[1]
+    end
+    arr[0..-1].my_each do |elem|
+      operation = if symbol operation.send(symbol, elem)
+                  else yield(operation, elem)
+                  end
+    end
+    operation
   end
 end
 
@@ -173,3 +189,7 @@ puts 'my_map'
 p (1..4).map { |i| i*i }      #=> [1, 4, 9, 16]
 p (1..4).map                  #=> Enumerator
 
+puts '---------------------------------------------'
+puts 'my_inject'
+arr = [5, 6, 7, 8, 9, 10]
+puts arr.my_inject :*
