@@ -78,6 +78,15 @@ module Enumerable
       self.size
     end
   end
+
+  def my_map
+    new_array = []
+    if block_given?
+      my_each {|i| new_array.push(yield(i))}
+    else
+      to_enum
+    end
+  end
 end
 
 puts '---------------------------------------------'
@@ -166,3 +175,8 @@ ary = [1, 2, 4, 2]
 puts ary.count               #=> 4
 puts ary.count(2)            #=> 2
 puts ary.count{ |x| x%2==0 } #=> 3
+
+puts '---------------------------------------------'
+puts 'my_map'
+p (1..4).map { |i| i*i }      #=> [1, 4, 9, 16]
+p (1..4).map                  #=> Enumerator
