@@ -87,6 +87,11 @@ module Enumerable
       to_enum
     end
   end
+
+  def my_inject(*args)
+    arr = to_a.dup
+    if args[0]
+  end
 end
 
 puts '---------------------------------------------'
@@ -167,3 +172,4 @@ puts '---------------------------------------------'
 puts 'my_map'
 p (1..4).map { |i| i*i }      #=> [1, 4, 9, 16]
 p (1..4).map                  #=> Enumerator
+
