@@ -90,7 +90,7 @@ module Enumerable
 end
 
 puts '---------------------------------------------'
-puts 'my_each -> whit block'
+puts 'my_each'
 puts (1..10).each_cons(3) { |a| p a }
 =begin
 # outputs below
@@ -103,23 +103,20 @@ puts (1..10).each_cons(3) { |a| p a }
 [7, 8, 9]
 [8, 9, 10]
 =end
-puts 'my_each -> no block given'
-puts [1, 2, 3, 4, 5, 6].my_each #=> Enumerator
+p [1, 2, 3, 4, 5, 6].my_each #=> Enumerator
 
 
 puts '---------------------------------------------'
-puts 'my_each_with_index -> whit block'
+puts 'my_each_with_index'
 hash = Hash.new
 %w(cat dog wombat).each_with_index { |item, index|
   hash[item] = index
 }
 puts hash   #=> {"cat"=>0, "dog"=>1, "wombat"=>2}
-puts '---------'
-puts 'my_each_with_index -> no block given'
-puts [1, 2, 3, 4, 5, 6].my_each_with_index #=> Enumerator
+p [1, 2, 3, 4, 5, 6].my_each_with_index #=> Enumerator
 
 puts '---------------------------------------------'
-puts 'my_select -> whit block'
+puts 'my_select'
 p (1..10).find_all { |i|  i % 3 == 0 }   #=> [3, 6, 9]
 p [1,2,3,4,5].select { |num|  num.even?  }   #=> [2, 4]
 p [:foo, :bar].filter { |x| x == :foo }   #=> [:foo]
@@ -128,42 +125,23 @@ new_arr = arr.my_select do |num|
   num.to_f > 13.3 
 end
 p new_arr                #=> [13.4, 15.5, 16.9]
-puts '---------'
-puts 'my_select -> no block given'
-puts [12.2, 13.4, 15.5, 16.9, 10.2].my_select #=> Enumerator
+p [12.2, 13.4, 15.5, 16.9, 10.2].my_select #=> Enumerator
 
 puts '---------------------------------------------'
-puts 'my_all? -> whit block'
-arr = %w[Johnny Jack Jim Jonesy]
-new_arr =  arr.my_all? do |name|
-  name[0] == 'J' 
-end
-puts new_arr      #=> true
-puts '---------'
-puts 'my_all? -> regex given'
-puts %w[ant bear cat].all?(/t/)  #=> false
-puts '---------'
-puts 'my_all? -> class given'
-puts [1, 2i, 3.14].all?(Numeric) #=> true
-puts '---------'
-puts 'my_all? -> no parameter given'
-puts [nil, true, 99].all?       #=> false
-puts [].all?                    #=> true
+puts 'my_all?'
+puts %w[ant bear cat].all? { |word| word.length >= 3 } #=> true
+puts %w[ant bear cat].all? { |word| word.length >= 4 } #=> false
+puts %w[ant bear cat].all?(/t/)                        #=> false
+puts [1, 2i, 3.14].all?(Numeric)                       #=> true
+puts [nil, true, 99].all?         #=> false
+puts [].all?                      #=> true
 
 puts '---------------------------------------------'
-puts 'my_any? -> whit block'
-arr = %w[Billy Alex Brooke Andrea Willard]
-new_arr = arr.my_any? do |name|
-  name.match(/Bi/) 
-end
-puts new_arr
-puts '---------'
-puts 'my_any? -> regex given'
+puts 'my_any?'
+puts %w[ant bear cat].any? { |word| word.length >= 3 } #=> true
+puts %w[ant bear cat].any? { |word| word.length >= 4 } #=> true
 puts %w[ant bear cat].any?(/d/)       #=> false
-puts '---------'
-puts 'my_any? -> class given'
 puts [nil, true, 99].any?(Integer)    #=> true
-puts 'my_any? -> no parameter given'
 puts [nil, true, 99].any?             #=> true
 puts [].any?                          #=> false
 
@@ -189,3 +167,12 @@ puts '---------------------------------------------'
 puts 'my_map'
 p (1..4).map { |i| i*i }      #=> [1, 4, 9, 16]
 p (1..4).map                  #=> Enumerator
+
+puts '---------------------------------------------'
+puts 'my_any?'
+puts %w[ant bear cat].any? { |word| word.length >= 3 } #=> true
+puts %w[ant bear cat].any? { |word| word.length >= 4 } #=> true
+puts %w[ant bear cat].any?(/d/)                        #=> false
+puts [nil, true, 99].any?(Integer)                     #=> true
+puts [nil, true, 99].any?                              #=> true
+puts [].any?                                           #=> false
