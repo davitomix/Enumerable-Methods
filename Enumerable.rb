@@ -92,20 +92,31 @@ end
 puts '---------------------------------------------'
 puts 'my_each -> whit block'
 puts (1..10).each_cons(3) { |a| p a }
+=begin
+# outputs below
+[1, 2, 3]
+[2, 3, 4]
+[3, 4, 5]
+[4, 5, 6]
+[5, 6, 7]
+[6, 7, 8]
+[7, 8, 9]
+[8, 9, 10]
+=end
 puts 'my_each -> no block given'
-puts [1, 2, 3, 4, 5, 6].my_each
+puts [1, 2, 3, 4, 5, 6].my_each #=> Enumerator
 
 
 puts '---------------------------------------------'
 puts 'my_each_with_index -> whit block'
-arr = %w[A B C D]
-arr.my_each_with_index do |nickname, val|
-  puts "String: #{nickname}, Index: #{val}"
-end
-
+hash = Hash.new
+%w(cat dog wombat).each_with_index { |item, index|
+  hash[item] = index
+}
+puts hash   #=> {"cat"=>0, "dog"=>1, "wombat"=>2}
 puts '---------'
 puts 'my_each_with_index -> no block given'
-puts [1, 2, 3, 4, 5, 6].my_each_with_index
+puts [1, 2, 3, 4, 5, 6].my_each_with_index #=> Enumerator
 
 puts '---------------------------------------------'
 puts 'my_select -> whit block'
