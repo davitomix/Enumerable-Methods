@@ -67,6 +67,17 @@ module Enumerable
     end
     false
   end
+
+  def my_count(value)
+    counter = 0
+    if block_given?
+      my_each {|i| counter += 1 if self[i] == i}
+    elsif value.is_a? Enumerator
+      my_each {|i| counter += 1 if self[i] == i}
+    else
+      self.size
+    end
+  end
 end
 
 puts '---------------------------------------------'
@@ -139,7 +150,7 @@ puts [nil, true, 99].any?             #=> true
 puts [].any?                          #=> false
 
 puts '---------------------------------------------'
-puts 'my_none? -> whit block'
+puts 'my_none?'
 puts %w{ant bear cat}.none? { |word| word.length == 5 } #=> true
 puts %w{ant bear cat}.none? { |word| word.length >= 4 } #=> false
 puts %w{ant bear cat}.none?(/d/)                        #=> true
@@ -148,3 +159,10 @@ puts [].none?                                           #=> true
 puts [nil].none?                                        #=> true
 puts [nil, false].none?                                 #=> true
 puts [nil, false, true].none?                           #=> false
+
+puts '---------------------------------------------'
+puts 'my_count'
+ary = [1, 2, 4, 2]
+puts ary.count               #=> 4
+puts ary.count(2)            #=> 2
+puts ary.count{ |x| x%2==0 } #=> 3
