@@ -193,5 +193,11 @@ p (1..4).map                  #=> Enumerator
 
 puts '---------------------------------------------'
 puts 'my_inject'
-arr = [5, 6, 7, 8, 9, 10]
-puts arr.my_inject :*
+puts (5..10).my_inject :+     #=> 45
+puts (5..10).my_inject { |sum, n| sum + n } #=> 45
+puts (5..10).my_inject(1, :*) #=> 151200
+puts (5..10).inject(1) { |product, n| product * n } #=> 151200
+longest = %w{ cat sheep bear }.inject do |memo, word|
+  memo.length > word.length ? memo : word
+end
+puts longest #=> "sheep"
