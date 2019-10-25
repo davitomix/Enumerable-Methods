@@ -62,14 +62,14 @@ puts 'my_each_with_index -> no block given'
 puts [1, 2, 3, 4, 5, 6].my_each_with_index
 
 puts '---------------------------------------------'
-puts 'my_each_with_index -> whit block'
+puts 'my_select -> whit block'
 arr = [12.2, 13.4, 15.5, 16.9, 10.2]
 new_arr = arr.my_select do |num|
   num.to_f > 13.3 
 end
 puts new_arr
 puts '---------'
-puts 'my_each_with_index -> no block given'
+puts 'my_select -> no block given'
 puts [12.2, 13.4, 15.5, 16.9, 10.2].my_select
 
 puts '---------------------------------------------'
@@ -79,13 +79,13 @@ new_arr =  arr.my_all? do |name|
   name[0] == 'J' 
 end
 puts '---------'
-puts 'my_each_with_index -> regex given'
+puts 'my_all -> regex given'
 puts %w[ant bear cat].all?(/t/)  
 puts '---------'
-puts 'my_each_with_index -> class given'
+puts 'my_all -> class given'
 puts [1, 2i, 3.14].all?(Numeric) 
 puts '---------'
-puts 'my_each_with_index -> no parameter given'
+puts 'my_all -> no parameter given'
 puts [nil, true, 99].all?  
 puts [].all? 
 end
