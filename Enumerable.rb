@@ -102,8 +102,10 @@ module Enumerable
       symbol = args[1]
     end
     arr[0..-1].my_each do |elem|
-      operation = if symbol operation.send(symbol, elem)
-                  else yield(operation, elem)
+      operation = if symbol 
+                    operation.send(symbol, elem)
+                  else 
+                    yield(operation, elem)
                   end
     end
     operation
