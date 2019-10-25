@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 module Enumerable
   def my_each
     return to_enum unless block_given?
+
     i = 0
     while i < size
       yield(self[i])
@@ -11,6 +14,7 @@ module Enumerable
 
   def my_each_with_index
     return to_enum unless block_given?
+
     (0..size).each do |x|
       yield self[x], x
     end
@@ -18,6 +22,7 @@ module Enumerable
 
   def my_select
     return to_enum unless block_given?
+
     selected_items = []
     my_each {|i| selected_items << i if yield(i)}
     selected_items
@@ -25,17 +30,17 @@ module Enumerable
 
   def my_all?(param = nil)
     if block_given?
-      my_each { |i| return false unless yield(i)}
+      my_each { |i| return false unless yield(i) }
     elsif param.is_a? Class
-      my_each { |i| return false unless i.is_a? param}
+      my_each { |i| return false unless i.is_a? param }
     elsif param.is_a? Regexp
       my_each { |i| return false unless param =~ i }
     elsif param.nil?
-      my_each { |i| return false unless i}
+      my_each { |i| return false unless i }
     else
-      my_each {|i| return false unless i == param }
+      my_each { |i| return false unless i == param }
     end
-  true
+    true
   end
 
   def my_any?(param = nil)
@@ -114,25 +119,13 @@ end
 
 puts '---------------------------------------------'
 puts 'my_each'
-puts (1..10).each_cons(3) { |a| p a }
-=begin
-# outputs below
-[1, 2, 3]
-[2, 3, 4]
-[3, 4, 5]
-[4, 5, 6]
-[5, 6, 7]
-[6, 7, 8]
-[7, 8, 9]
-[8, 9, 10]
-=end
+p [1, 2, 3, 4, 5].my_each { |a| p a }
 p [1, 2, 3, 4, 5, 6].my_each #=> Enumerator
-
 
 puts '---------------------------------------------'
 puts 'my_each_with_index'
-hash = Hash.new
-%w(cat dog wombat).each_with_index { |item, index|
+hash = {}
+%w[cat dog wombat].each_with_index { |item, index|
   hash[item] = index
 }
 puts hash   #=> {"cat"=>0, "dog"=>1, "wombat"=>2}
