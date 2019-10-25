@@ -91,12 +91,7 @@ end
 
 puts '---------------------------------------------'
 puts 'my_each -> whit block'
-arr = [1, 2, 3, 4, 5, 6]
-arr.my_each do |num|
-  puts num * num 
-end
-
-puts '---------'
+puts (1..10).each_cons(3) { |a| p a }
 puts 'my_each -> no block given'
 puts [1, 2, 3, 4, 5, 6].my_each
 
