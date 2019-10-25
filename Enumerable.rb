@@ -167,12 +167,3 @@ puts '---------------------------------------------'
 puts 'my_map'
 p (1..4).map { |i| i*i }      #=> [1, 4, 9, 16]
 p (1..4).map                  #=> Enumerator
-
-puts '---------------------------------------------'
-puts 'my_any?'
-puts %w[ant bear cat].any? { |word| word.length >= 3 } #=> true
-puts %w[ant bear cat].any? { |word| word.length >= 4 } #=> true
-puts %w[ant bear cat].any?(/d/)                        #=> false
-puts [nil, true, 99].any?(Integer)                     #=> true
-puts [nil, true, 99].any?                              #=> true
-puts [].any?                                           #=> false
