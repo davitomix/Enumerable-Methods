@@ -24,7 +24,7 @@ module Enumerable
     return to_enum unless block_given?
 
     selected_items = []
-    my_each {|i| selected_items << i if yield(i)}
+    my_each { |i| selected_items << i if yield(i) }
     selected_items
   end
 
@@ -45,15 +45,15 @@ module Enumerable
 
   def my_any?(param = nil)
     if block_given?
-      my_each { |i| return true if yield(i)}
+      my_each { |i| return true if yield(i) }
     elsif param.is_a? Class
-      my_each { |i| return true if i.is_a? param}
+      my_each { |i| return true if i.is_a? param }
     elsif param.is_a? Regexp
       my_each { |i| return true if param =~ i }
     elsif param.nil?
-      my_each { |i| return true if i}
+      my_each { |i| return true if i }
     else
-      my_each {|i| return true if i == param }
+      my_each { |i| return true if i == param }
     end
     false
   end
@@ -66,7 +66,7 @@ module Enumerable
     elsif block.is_a? Class
       my_each { |i| return false if i.is_a? block }
     elsif block.nil?
-      my_each { |i| return false if i}
+      my_each { |i| return false if i }
     else
       my_each { |i| return false if i == block }
     end
@@ -80,7 +80,7 @@ module Enumerable
     elsif value.nil?
       my_each { counter += 1 }
     else
-      my_each {|i| counter += 1 if i == value}
+      my_each { |i| counter += 1 if i == value }
     end
     counter
   end
@@ -128,7 +128,7 @@ p [1, 2, 3, 4, 5, 6].my_each #=> Enumerator
 
 puts '---------------------------------------------'
 puts 'my_each_with_index'
-hash = Hash.new
+hash = {}
 %w[cat dog wombat].my_each_with_index do |item, index|
   hash[item] = index
 end
@@ -179,7 +179,7 @@ puts 'my_count'
 ary = [1, 2, 4, 2]
 puts ary.my_count #=> 4
 puts ary.my_count(2) #=> 2
-puts ary.my_count { |x| x % 2 == 0 } #=> 3
+puts ary.my_count { |x| (x % 2).zero? } #=> 3
 
 puts '---------------------------------------------'
 puts 'my_map'

@@ -33,6 +33,8 @@ Style/RedundantSelf:
   Enabled: false
 Style/For:
   Enabled: false
+Naming/FileName:
+  Enabled: false
 Style/SymbolProc:
   Enabled: false
 Lint/ParenthesesAsGroupedExpression:
