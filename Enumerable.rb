@@ -34,8 +34,9 @@ module Enumerable
       my_each { |i| return false unless i}
     else
       my_each {|i| return false unless i == param }
-  end
+    end
   true
+  end
 end
 
 puts '---------------------------------------------'
@@ -88,4 +89,3 @@ puts '---------'
 puts 'my_all -> no parameter given'
 puts [nil, true, 99].all?  
 puts [].all? 
-end
