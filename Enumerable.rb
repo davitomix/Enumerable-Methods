@@ -52,6 +52,21 @@ module Enumerable
     end
   false
   end
+
+  def my_none?
+    if block_given?
+      my_each {|i| return true if !yield(i)}
+    elsif param.is_a? Regexp
+      my_each { |i| return true if !param =~ i }
+    elsif param.is_a? Class
+      my_each { |i| return true if !i.is_a? param}
+    elsif param.nil?
+      my_each { |i| return true if !i}
+    else
+      false
+    end
+    false
+  end
 end
 
 puts '---------------------------------------------'
@@ -122,3 +137,14 @@ puts [nil, true, 99].any?(Integer)    #=> true
 puts 'my_any? -> no parameter given'
 puts [nil, true, 99].any?             #=> true
 puts [].any?                          #=> false
+
+puts '---------------------------------------------'
+puts 'my_none? -> whit block'
+puts %w{ant bear cat}.none? { |word| word.length == 5 } #=> true
+puts %w{ant bear cat}.none? { |word| word.length >= 4 } #=> false
+puts %w{ant bear cat}.none?(/d/)                        #=> true
+puts [1, 3.14, 42].none?(Float)                         #=> false
+puts [].none?                                           #=> true
+puts [nil].none?                                        #=> true
+puts [nil, false].none?                                 #=> true
+puts [nil, false, true].none?                           #=> false
