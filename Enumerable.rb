@@ -120,14 +120,17 @@ puts [1, 2, 3, 4, 5, 6].my_each_with_index #=> Enumerator
 
 puts '---------------------------------------------'
 puts 'my_select -> whit block'
+p (1..10).find_all { |i|  i % 3 == 0 }   #=> [3, 6, 9]
+p [1,2,3,4,5].select { |num|  num.even?  }   #=> [2, 4]
+p [:foo, :bar].filter { |x| x == :foo }   #=> [:foo]
 arr = [12.2, 13.4, 15.5, 16.9, 10.2]
 new_arr = arr.my_select do |num|
   num.to_f > 13.3 
 end
-puts new_arr
+p new_arr                #=> [13.4, 15.5, 16.9]
 puts '---------'
 puts 'my_select -> no block given'
-puts [12.2, 13.4, 15.5, 16.9, 10.2].my_select 
+puts [12.2, 13.4, 15.5, 16.9, 10.2].my_select #=> Enumerator
 
 puts '---------------------------------------------'
 puts 'my_all? -> whit block'
