@@ -15,7 +15,7 @@ module Enumerable
   def my_each_with_index
     return to_enum unless block_given?
 
-    (0..size).each do |x|
+    (0...size).each do |x|
       yield self[x], x
     end
   end
@@ -45,15 +45,15 @@ module Enumerable
 
   def my_any?(param = nil)
     if block_given?
-      my_each { |i| return true unless yield(i)}
+      my_each { |i| return true if yield(i)}
     elsif param.is_a? Class
-      my_each { |i| return true unless i.is_a? param}
+      my_each { |i| return true if i.is_a? param}
     elsif param.is_a? Regexp
-      my_each { |i| return true unless param =~ i }
+      my_each { |i| return true if param =~ i }
     elsif param.nil?
-      my_each { |i| return true unless i}
+      my_each { |i| return true if i}
     else
-      my_each {|i| return true unless i == param }
+      my_each {|i| return true if i == param }
     end
     false
   end
@@ -125,7 +125,7 @@ p [1, 2, 3, 4, 5, 6].my_each #=> Enumerator
 
 puts '---------------------------------------------'
 puts 'my_each_with_index'
-hash = {}
+hash = Hash.new
 %w[cat dog wombat].my_each_with_index do |item, index|
   hash[item] = index
 end
@@ -153,30 +153,30 @@ puts [].all? #=> true
 
 puts '---------------------------------------------'
 puts 'my_any?'
-puts %w[ant bear cat].any? { |word| word.length >= 3 } #=> true
-puts %w[ant bear cat].any? { |word| word.length >= 4 } #=> true
-puts %w[ant bear cat].any?(/d/) #=> false
-puts [nil, true, 99].any?(Integer) #=> true
-puts [nil, true, 99].any? #=> true
-puts [].any? #=> false
+puts %w[ant bear cat].my_any? { |word| word.length >= 3 } #=> true
+puts %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> true
+puts %w[ant bear cat].my_any?(/d/) #=> false
+puts [nil, true, 99].my_any?(Integer) #=> true
+puts [nil, true, 99].my_any? #=> true
+puts [].my_any? #=> false
 
 puts '---------------------------------------------'
 puts 'my_none?'
-puts %w[ant bear cat].none? { |word| word.length == 5 } #=> true
-puts %w[ant bear cat].none? { |word| word.length >= 4 } #=> false
-puts %w[ant bear cat].none?(/d/) #=> true
-puts [1, 3.14, 42].none?(Float) #=> false
-puts [].none? #=> true
-puts [nil].none? #=> true
-puts [nil, false].none? #=> true
-puts [nil, false, true].none? #=> false
+puts %w[ant bear cat].my_none? { |word| word.length == 5 } #=> true
+puts %w[ant bear cat].my_none? { |word| word.length >= 4 } #=> false
+puts %w[ant bear cat].my_none?(/d/) #=> true
+puts [1, 3.14, 42].my_none?(Float) #=> false
+puts [].my_none? #=> true
+puts [nil].my_none? #=> true
+puts [nil, false].my_none? #=> true
+puts [nil, false, true].my_none? #=> false
 
 puts '---------------------------------------------'
 puts 'my_count'
 ary = [1, 2, 4, 2]
 puts ary.count #=> 4
 puts ary.count(2) #=> 2
-puts ary.count { |x| x % 2.zero? } #=> 3
+puts ary.count { |x| x % 2 == 0 } #=> 3
 
 puts '---------------------------------------------'
 puts 'my_map'
