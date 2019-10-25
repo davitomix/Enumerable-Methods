@@ -55,18 +55,18 @@ module Enumerable
     else
       my_each {|i| return true unless i == param }
     end
-  false
+    false
   end
 
   def my_none?
     if block_given?
-      my_each {|i| return true if !yield(i)}
+      my_each { |i| return true if !yield(i) }
     elsif param.is_a? Regexp
       my_each { |i| return true if !param =~ i }
     elsif param.is_a? Class
-      my_each { |i| return true if !i.is_a? param}
+      my_each { |i| return true if !i.is_a? param }
     elsif param.nil?
-      my_each { |i| return true if !i}
+      my_each { |i| return true if !i }
     else
       false
     end
@@ -76,9 +76,9 @@ module Enumerable
   def my_count(value)
     counter = 0
     if block_given?
-      my_each {|i| counter += 1 if self[i] == i}
+      my_each { |i| counter += 1 if self[i] == i }
     elsif value.is_a? Enumerator
-      my_each {|i| counter += 1 if self[i] == i}
+      my_each { |i| counter += 1 if self[i] == i }
     else
       self.size
     end
@@ -87,7 +87,7 @@ module Enumerable
   def my_map
     new_array = []
     if block_given?
-      my_each {|i| new_array.push(yield(i))}
+      my_each { |i| new_array.push(yield(i)) }
     else
       to_enum
     end
@@ -107,9 +107,9 @@ module Enumerable
       symbol = args[1]
     end
     arr[0..size].my_each do |elem|
-      operation = if symbol 
+      operation = if symbol
                     operation.send(symbol, elem)
-                  else 
+                  else
                     yield(operation, elem)
                   end
     end
@@ -119,70 +119,69 @@ end
 
 puts '---------------------------------------------'
 puts 'my_each'
-p [1, 2, 3, 4, 5].my_each { |a| p a }
+array = [1, 2, 3, 4, 5].my_each { |i| i * i }
+p array
 p [1, 2, 3, 4, 5, 6].my_each #=> Enumerator
 
 puts '---------------------------------------------'
 puts 'my_each_with_index'
 hash = {}
-%w[cat dog wombat].each_with_index { |item, index|
+%w[cat dog wombat].my_each_with_index do |item, index|
   hash[item] = index
-}
-puts hash   #=> {"cat"=>0, "dog"=>1, "wombat"=>2}
+end
+puts hash #=> {"cat"=>0, "dog"=>1, "wombat"=>2}
 p [1, 2, 3, 4, 5, 6].my_each_with_index #=> Enumerator
 
 puts '---------------------------------------------'
 puts 'my_select'
-p (1..10).find_all { |i|  i % 3 == 0 }   #=> [3, 6, 9]
-p [1,2,3,4,5].select { |num|  num.even?  }   #=> [2, 4]
-p [:foo, :bar].filter { |x| x == :foo }   #=> [:foo]
+p [1, 2, 3, 4, 5].my_select { |num| num.even? } #=> [2, 4]
 arr = [12.2, 13.4, 15.5, 16.9, 10.2]
 new_arr = arr.my_select do |num|
-  num.to_f > 13.3 
+  num.to_f > 13.3
 end
-p new_arr                #=> [13.4, 15.5, 16.9]
+p new_arr #=> [13.4, 15.5, 16.9]
 p [12.2, 13.4, 15.5, 16.9, 10.2].my_select #=> Enumerator
 
 puts '---------------------------------------------'
 puts 'my_all?'
-puts %w[ant bear cat].all? { |word| word.length >= 3 } #=> true
-puts %w[ant bear cat].all? { |word| word.length >= 4 } #=> false
-puts %w[ant bear cat].all?(/t/)                        #=> false
-puts [1, 2i, 3.14].all?(Numeric)                       #=> true
-puts [nil, true, 99].all?         #=> false
-puts [].all?                      #=> true
+puts %w[ant bear cat].my_all? { |word| word.length >= 3 } #=> true
+puts %w[ant bear cat].my_all? { |word| word.length >= 4 } #=> false
+puts %w[ant bear cat].my_all?(/t/) #=> false
+puts [1, 2i, 3.14].all?(Numeric) #=> true
+puts [nil, true, 99].all? #=> false
+puts [].all? #=> true
 
 puts '---------------------------------------------'
 puts 'my_any?'
 puts %w[ant bear cat].any? { |word| word.length >= 3 } #=> true
 puts %w[ant bear cat].any? { |word| word.length >= 4 } #=> true
-puts %w[ant bear cat].any?(/d/)       #=> false
-puts [nil, true, 99].any?(Integer)    #=> true
-puts [nil, true, 99].any?             #=> true
-puts [].any?                          #=> false
+puts %w[ant bear cat].any?(/d/) #=> false
+puts [nil, true, 99].any?(Integer) #=> true
+puts [nil, true, 99].any? #=> true
+puts [].any? #=> false
 
 puts '---------------------------------------------'
 puts 'my_none?'
-puts %w{ant bear cat}.none? { |word| word.length == 5 } #=> true
-puts %w{ant bear cat}.none? { |word| word.length >= 4 } #=> false
-puts %w{ant bear cat}.none?(/d/)                        #=> true
-puts [1, 3.14, 42].none?(Float)                         #=> false
-puts [].none?                                           #=> true
-puts [nil].none?                                        #=> true
-puts [nil, false].none?                                 #=> true
-puts [nil, false, true].none?                           #=> false
+puts %w[ant bear cat].none? { |word| word.length == 5 } #=> true
+puts %w[ant bear cat].none? { |word| word.length >= 4 } #=> false
+puts %w[ant bear cat].none?(/d/) #=> true
+puts [1, 3.14, 42].none?(Float) #=> false
+puts [].none? #=> true
+puts [nil].none? #=> true
+puts [nil, false].none? #=> true
+puts [nil, false, true].none? #=> false
 
 puts '---------------------------------------------'
 puts 'my_count'
 ary = [1, 2, 4, 2]
-puts ary.count               #=> 4
-puts ary.count(2)            #=> 2
-puts ary.count{ |x| x%2==0 } #=> 3
+puts ary.count #=> 4
+puts ary.count(2) #=> 2
+puts ary.count { |x| x % 2.zero? } #=> 3
 
 puts '---------------------------------------------'
 puts 'my_map'
-p (1..4).map { |i| i*i }      #=> [1, 4, 9, 16]
-p (1..4).map                  #=> Enumerator
+p (1..4).map { |i| i * i } #=> [1, 4, 9, 16]
+p (1..4).map #=> Enumerator
 
 puts '---------------------------------------------'
 puts 'my_inject'
@@ -190,7 +189,7 @@ puts (5..10).my_inject { |sum, n| sum + n } #=> 45
 puts (5..10).my_inject :+     #=> 45
 puts (5..10).inject(1) { |product, n| product * n } #=> 151200
 puts (5..10).my_inject(1, :*) #=> 151200
-longest = %w{ cat sheep bear }.inject do |memo, word|
+longest = %w[cat sheep bear].inject do |memo, word|
   memo.length > word.length ? memo : word
 end
-puts longest #=> "sheep"
+puts longest #=> 'sheep'

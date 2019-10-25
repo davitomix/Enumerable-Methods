@@ -33,6 +33,10 @@ Style/RedundantSelf:
   Enabled: false
 Style/For:
   Enabled: false
+Style/SymbolProc:
+  Enabled: false
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: false
 Style/IfUnlessModifier:
   Enabled: false
 Style/GuardClause:
