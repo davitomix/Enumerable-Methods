@@ -85,13 +85,15 @@ module Enumerable
     counter
   end
 
-  def my_map
-    new_array = []
-    if block_given?
-      my_each { |i| new_array.push(yield(i)) }
-    else
-      to_enum
+  def my_map(proc = nil)
+    return to_enum unless block_given?
+
+    var = self
+    result = []
+    var.my_each do |x|
+      result << (block_given? ? yield(x) : proc.call(x))
     end
+    result
   end
 
   def my_inject(*args)
@@ -181,8 +183,8 @@ puts ary.my_count { |x| x % 2 == 0 } #=> 3
 
 puts '---------------------------------------------'
 puts 'my_map'
-p (1..4).my_map { |i| i * i } #=> [1, 4, 9, 16]
-p (1..4).my_map #=> Enumerator
+p [1, 2, 3, 4].my_map { |i| i * i } #=> [1, 4, 9, 16]
+p [1, 2, 3, 4].my_map #=> Enumerator
 
 puts '---------------------------------------------'
 puts 'my_inject'
