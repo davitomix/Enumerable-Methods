@@ -101,7 +101,7 @@ module Enumerable
       operation = args[0]
       symbol = args[1]
     end
-    arr[0..-1].my_each do |elem|
+    arr[0..size].my_each do |elem|
       operation = if symbol 
                     operation.send(symbol, elem)
                   else 
