@@ -58,30 +58,31 @@ module Enumerable
     false
   end
 
-  def my_none?
+  def my_none?(block = nil)
     if block_given?
-      my_each { |i| return true if !yield(i) }
-    elsif param.is_a? Regexp
-      my_each { |i| return true if !param =~ i }
-    elsif param.is_a? Class
-      my_each { |i| return true if !i.is_a? param }
-    elsif param.nil?
-      my_each { |i| return true if !i }
+      my_each { |i| return false if yield(i) }
+    elsif block.is_a? Regexp
+      my_each { |i| return false if block =~ i }
+    elsif block.is_a? Class
+      my_each { |i| return false if i.is_a? block }
+    elsif block.nil?
+      my_each { |i| return false if i}
     else
-      false
+      my_each { |i| return false if i == block }
     end
-    false
+    true
   end
 
-  def my_count(value)
+  def my_count(value = nil)
     counter = 0
     if block_given?
-      my_each { |i| counter += 1 if self[i] == i }
-    elsif value.is_a? Enumerator
-      my_each { |i| counter += 1 if self[i] == i }
+      my_each { |i| counter += 1 if yield(i) == true }
+    elsif value.nil?
+      my_each { counter += 1 }
     else
-      self.size
+      my_each {|i| counter += 1 if i == value}
     end
+    counter
   end
 
   def my_map
@@ -174,14 +175,14 @@ puts [nil, false, true].my_none? #=> false
 puts '---------------------------------------------'
 puts 'my_count'
 ary = [1, 2, 4, 2]
-puts ary.count #=> 4
-puts ary.count(2) #=> 2
-puts ary.count { |x| x % 2 == 0 } #=> 3
+puts ary.my_count #=> 4
+puts ary.my_count(2) #=> 2
+puts ary.my_count { |x| x % 2 == 0 } #=> 3
 
 puts '---------------------------------------------'
 puts 'my_map'
-p (1..4).map { |i| i * i } #=> [1, 4, 9, 16]
-p (1..4).map #=> Enumerator
+p (1..4).my_map { |i| i * i } #=> [1, 4, 9, 16]
+p (1..4).my_map #=> Enumerator
 
 puts '---------------------------------------------'
 puts 'my_inject'
