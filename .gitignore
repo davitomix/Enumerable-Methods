@@ -1,1 +1,3 @@
 .vscode/*
+.enumerable.rb.swp
+.spec/.enumerable_spec.rb.swp
