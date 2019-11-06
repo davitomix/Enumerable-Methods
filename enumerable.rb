@@ -135,12 +135,6 @@ end
 puts hash #=> {"cat"=>0, "dog"=>1, "wombat"=>2}
 p [1, 2, 3, 4, 5, 6].my_each_with_index #=> Enumerator
 
-my_array = []
-[1, 2, 3, 4, 5, 6].my_each_with_index do |item, index|
-  my_array << item + index
-end
-p my_array
-
 puts '---------------------------------------------'
 puts 'my_select'
 p [1, 2, 3, 4, 5].my_select { |num| num.even? } #=> [2, 4]
