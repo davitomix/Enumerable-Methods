@@ -23,5 +23,23 @@ describe Enumerable do
     end
   end
 
+  describe '#my_each_with_index' do
+    context 'If block is given' do
+      it 'It iterates through the each element at a given index in the array' do
+        hash_one = {}
+        hash_two = {}
+        sample_arr.my_each_with_index{|item, index| hash_one[item] = index}
+        sample_arr.each_with_index{|item, index| }
+      end
+    end
+    context 'If no block is given' do
+      it 'returns an enumerator' do
+        expect(sample_arr.my_each.is_a?(Enumerable)).to be true
+      end
+    end
+    
+
+  end
+
 
 end
