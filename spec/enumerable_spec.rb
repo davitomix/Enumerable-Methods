@@ -70,15 +70,21 @@ describe Enumerable do
       test_arr = sample_arr.my_all? { |x| x > 0 }
       expect(test_arr).to eql(original_arr)
     end  
-  end
+  
 
-  context "If an argument is given" do
-    it 'Returns true when all the elements belong to the class' do
-      expect(sample_arr.my_all?(Integer)).to eql(true)
-      expect(sample_arr.my_all?(String)).to eql(false)
+    context "If an argument is given" do
+      it 'Returns true when all the elements belong to the class' do
+        expect(sample_arr.my_all?(Integer)).to eql(true)
+        expect(sample_arr.my_all?(String)).to eql(false)
+      end
+    end
+
+    context 'Argument = Regexp'
+    it 'returns true when all elements match the Regular Expression passed or false when it does not pass' do
+      expect(word_arr.my_all?(/[a-z]/)).to eql(true)
+      expect(word_arr.my_all?(/d/)).to eql(false)
     end
   end
-  
   
 
 end
