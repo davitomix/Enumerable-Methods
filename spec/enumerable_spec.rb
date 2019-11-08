@@ -20,9 +20,9 @@ describe Enumerable do
   end
 
   context 'If no block is given'  do
-    subject { sample_arr.my_each.is_a?(Enumerable) }
+    subject { sample_arr.my_each }
     it 'returns an enumerator' do
-      expect(subject).to be true
+      expect(subject).to be_a(Enumerable)
     end
   end
 
@@ -32,6 +32,13 @@ describe Enumerable do
         sample_arr.each_with_index{ |i, indx| hash_one[i] = indx } 
         sample_arr.my_each_with_index{ |i, indx| hash_two[i] = indx } 
         expect(hash_one).to eql(hash_two)
+      end
+    end
+
+    context 'If no block is given' do
+      subject { sample_arr.my_each_with_index }
+      it 'Returns an enumerator' do
+        expect(subject).to be_a(Enumerable)
       end
     end
   end
