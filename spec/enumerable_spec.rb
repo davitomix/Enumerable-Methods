@@ -87,5 +87,27 @@ describe Enumerable do
       expect(word_arr.my_all?(/d/)).to eql(false)
     end
   end  
+  
+  describe '#my_any?' do
+    context 'If block is given' do 
+      subject { word_arr.my_any? { |word|  word.length >= 3 } }
+      it 'Returns true if ever return a value other than false or nil' do
+        expect(subject).to be true
+      end
+    end
 
+    context 'If an argument is given' do
+      subject { mix_arr.my_any?(Integer) }
+      it 'returns true if theres a element in the array' do
+        expect(subject).to be true
+      end
+    end
+
+    context 'If nor argument is given ' do
+      subject { mix_arr.my_any? }
+      it 'returns true if there a true in the array' do
+        expect(subject).to be true
+      end
+    end
+  end
 end
