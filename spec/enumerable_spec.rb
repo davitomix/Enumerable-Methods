@@ -140,5 +140,9 @@ describe Enumerable do
       test_arr = sample_arr.my_count { |x| x > 5 }
       expect(test_arr).to eql(original_arr)
     end
+
+    it 'returns array length when no block given' do
+      expect(sample_arr.my_count).to eql(5)
+    end
   end
 end
