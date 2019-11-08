@@ -165,4 +165,20 @@ describe Enumerable do
       expect(sample_arr.my_map(&:to_s)).to eq(%w[1 2 3 4 5])
     end
   end
+
+  describe '#my_inject' do
+    context 'If block is given' do
+      subject { sample_arr.my_inject { |sum, n| sum + n } }
+      it 'returns an accumulator that stores the result of the block' do
+        expect(subject).to eq(sample_arr.inject { |sum, n| sum + n } )
+      end
+    end
+
+    context 'If a symbol is given' do
+      subject { sample_arr.my_inject :* }
+      it 'returns an accumulator executing the operator symbol' do
+        expect(subject).to eq(sample_arr.inject :*)
+      end
+    end
+  end
 end
