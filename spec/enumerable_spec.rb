@@ -180,5 +180,12 @@ describe Enumerable do
         expect(subject).to eq(sample_arr.inject :*)
       end
     end
+
+    context 'If an argument and a block is given' do
+      subject { sample_arr.my_inject(1) { |prod, n| prod * n } }
+      it 'return an accumulator, the arg is going to be the first value' do
+        expect(subject).to eq(sample_arr.inject(1) { |prod, n| prod * n })
+      end
+    end
   end
 end
