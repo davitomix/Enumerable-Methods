@@ -148,5 +148,9 @@ describe Enumerable do
     it 'returns the number of elements that is equal to the given argument' do
       expect(sample_arr.my_count(2)).to eq(1)
     end
+
+    it 'returns the number of elements that match with a given condition' do
+      expect(sample_arr.my_count(&:even?)).to eq(2)
+    end    
   end
 end
