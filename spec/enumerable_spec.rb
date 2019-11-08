@@ -160,5 +160,9 @@ describe Enumerable do
       test_arr = sample_arr.my_map { |x| x * x }
       expect(test_arr).to eql(original_arr)
     end
+
+    it 'returns array of strings when given array of integers' do
+      expect(sample_arr.my_map(&:to_s)).to eq(%w[1 2 3 4 5])
+    end
   end
 end
