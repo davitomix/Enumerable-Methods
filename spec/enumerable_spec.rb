@@ -133,4 +133,12 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_count' do
+    it 'takes an enumerable collection and counts how many elements match the given criteria.' do
+      original_arr =sample_arr.count { |x| x > 5 }
+      test_arr = sample_arr.my_count { |x| x > 5 }
+      expect(test_arr).to eql(original_arr)
+    end
+  end
 end
