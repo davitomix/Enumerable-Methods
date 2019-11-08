@@ -187,5 +187,12 @@ describe Enumerable do
         expect(subject).to eq(sample_arr.inject(1) { |prod, n| prod * n })
       end
     end
+
+    context 'If an argument and a symbol is given' do
+      subject { sample_arr.my_inject(1, :*) }
+      it 'The argument be the initial value and return an acc exec the symbol' do
+        expect(subject).to eq(sample_arr.inject(1, :*))
+      end
+    end
   end
 end
