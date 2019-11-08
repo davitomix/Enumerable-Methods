@@ -10,7 +10,7 @@ describe Enumerable do
   let(:nil_arr) { [] }
   hash_one = {}
   hash_two = {}
-  
+
   describe '#my_each' do
     context 'If block is given' do
       subject { sample_arr.each { |i| i * i } }
@@ -62,5 +62,13 @@ describe Enumerable do
         expect(sample_arr.my_each.is_a?(Enumerable)).to be true
       end
     end
+  end
+
+  describe '#my_all' do
+    it 'Returns true if the elements are true else it returns an empty array' do
+      original_arr = sample_arr.all? { |x| x > 0 }
+      test_arr = sample_arr.my_all? { |x| x > 0 }
+      expect(test_arr).to eql(original_arr)
+    end  
   end
 end
