@@ -53,9 +53,11 @@ describe Enumerable do
     end
 
     context "If a block is given" do
-      it 'Returns the selected item' do
+      it 'returns an Enumerator when no block given' do
+        expect(sample_arr.my_select.is_a?(Enumerator)).to be(true)
       end
     end
+
     
     context "If no block is given" do
       it 'Returns an enumerator' do
@@ -84,7 +86,6 @@ describe Enumerable do
       expect(word_arr.my_all?(/[a-z]/)).to eql(true)
       expect(word_arr.my_all?(/d/)).to eql(false)
     end
-  end
-  
+  end  
 
 end
