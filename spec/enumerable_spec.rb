@@ -153,4 +153,12 @@ describe Enumerable do
       expect(sample_arr.my_count(&:even?)).to eq(2)
     end    
   end
+
+  describe '#my_map' do
+    it 'returns a new array with the results of running block.' do
+      original_arr = sample_arr.map { |x| x * x }
+      test_arr = sample_arr.my_map { |x| x * x }
+      expect(test_arr).to eql(original_arr)
+    end
+  end
 end
