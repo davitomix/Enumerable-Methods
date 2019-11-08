@@ -71,4 +71,14 @@ describe Enumerable do
       expect(test_arr).to eql(original_arr)
     end  
   end
+
+  context "If an argument is given" do
+    it 'Returns true when all the elements belong to the class' do
+      expect(sample_arr.my_all?(Integer)).to eql(true)
+      expect(sample_arr.my_all?(String)).to eql(false)
+    end
+  end
+  
+  
+
 end
