@@ -110,4 +110,27 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_none?' do
+    context 'If block is given' do
+      subject { word_arr.my_none? { |word| word.length == 5 } }
+      it 'return true if block never return true for all elemetns' do
+        expect(subject).to be true
+      end
+    end
+
+    context 'If an argument is given' do
+      subject { num_arr.my_none?(Float) } 
+      it 'return false if all elements are true' do
+        expect(subject).to be false
+      end
+    end
+
+    context 'If no arguments is given' do
+      subject { nil_arr.my_none? }
+      it 'returns true if all elements are false or nil' do
+        expect(subject).to be true
+      end
+    end
+  end
 end
