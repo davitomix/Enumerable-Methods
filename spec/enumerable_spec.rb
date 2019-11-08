@@ -144,5 +144,9 @@ describe Enumerable do
     it 'returns array length when no block given' do
       expect(sample_arr.my_count).to eql(5)
     end
+
+    it 'returns the number of elements that is equal to the given argument' do
+      expect(sample_arr.my_count(2)).to eq(1)
+    end
   end
 end
