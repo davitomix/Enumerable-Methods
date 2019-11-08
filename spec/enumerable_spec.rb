@@ -15,12 +15,12 @@ describe Enumerable do
     context 'If block is given' do
       subject { sample_arr.each { |i| i * i } }
       it 'Travels the array, one element at a time' do
-        expect(subject).to eql(sample_arr.my_each { |i| i * i})
+        expect(subject).to eql(sample_arr.my_each { |i| i * i })
       end
     end
   end
 
-  context 'If no block is given'  do
+  context 'If no block is given' do
     subject { sample_arr.my_each }
     it 'returns an enumerator' do
       expect(subject).to be_a(Enumerable)
@@ -30,8 +30,8 @@ describe Enumerable do
   describe '#my_each_with_index' do
     context 'If block is given' do
       it 'Travels the array, one element at a time with index' do
-        sample_arr.each_with_index{ |i, indx| hash_one[i] = indx } 
-        sample_arr.my_each_with_index{ |i, indx| hash_two[i] = indx } 
+        sample_arr.each_with_index { |i, indx| hash_one[i] = indx }
+        sample_arr.my_each_with_index { |i, indx| hash_two[i] = indx }
         expect(hash_one).to eql(hash_two)
       end
     end
@@ -44,22 +44,20 @@ describe Enumerable do
     end
   end
 
-
-  describe '#my_select'  do
+  describe '#my_select' do
     it 'Returns the selected item according to the specified conditions' do
-      original_arr = sample_arr.my_select{ |x| x > 2 }
-      test_arr = sample_arr.my_select{ |x| x > 2 }
+      original_arr = sample_arr.my_select { |x| x > 2 }
+      test_arr = sample_arr.my_select { |x| x > 2 }
       expect(test_arr).to eql(original_arr)
     end
 
-    context "If a block is given" do
+    context 'If a block is given' do
       it 'returns an Enumerator when no block given' do
         expect(sample_arr.my_select.is_a?(Enumerator)).to be(true)
       end
     end
 
-    
-    context "If no block is given" do
+    context 'If no block is given' do
       it 'Returns an enumerator' do
         expect(sample_arr.my_each.is_a?(Enumerable)).to be true
       end
@@ -71,10 +69,9 @@ describe Enumerable do
       original_arr = sample_arr.all? { |x| x > 0 }
       test_arr = sample_arr.my_all? { |x| x > 0 }
       expect(test_arr).to eql(original_arr)
-    end  
-  
+    end
 
-    context "If an argument is given" do
+    context 'If an argument is given' do
       it 'Returns true when all the elements belong to the class' do
         expect(sample_arr.my_all?(Integer)).to eql(true)
         expect(sample_arr.my_all?(String)).to eql(false)
@@ -86,11 +83,11 @@ describe Enumerable do
       expect(word_arr.my_all?(/[a-z]/)).to eql(true)
       expect(word_arr.my_all?(/d/)).to eql(false)
     end
-  end  
-  
+  end
+
   describe '#my_any?' do
-    context 'If block is given' do 
-      subject { word_arr.my_any? { |word|  word.length >= 3 } }
+    context 'If block is given' do
+      subject { word_arr.my_any? { |word| word.length >= 3 } }
       it 'Returns true if ever return a value other than false or nil' do
         expect(subject).to be true
       end
@@ -120,7 +117,7 @@ describe Enumerable do
     end
 
     context 'If an argument is given' do
-      subject { num_arr.my_none?(Float) } 
+      subject { num_arr.my_none?(Float) }
       it 'return false if all elements are true' do
         expect(subject).to be false
       end
@@ -136,7 +133,7 @@ describe Enumerable do
 
   describe '#my_count' do
     it 'takes an enumerable collection and counts how many elements match the given criteria.' do
-      original_arr =sample_arr.count { |x| x > 5 }
+      original_arr = sample_arr.count { |x| x > 5 }
       test_arr = sample_arr.my_count { |x| x > 5 }
       expect(test_arr).to eql(original_arr)
     end
@@ -151,7 +148,7 @@ describe Enumerable do
 
     it 'returns the number of elements that match with a given condition' do
       expect(sample_arr.my_count(&:even?)).to eq(2)
-    end    
+    end
   end
 
   describe '#my_map' do
@@ -170,14 +167,14 @@ describe Enumerable do
     context 'If block is given' do
       subject { sample_arr.my_inject { |sum, n| sum + n } }
       it 'returns an accumulator that stores the result of the block' do
-        expect(subject).to eq(sample_arr.inject { |sum, n| sum + n } )
+        expect(subject).to eq(sample_arr.inject { |sum, n| sum + n })
       end
     end
 
     context 'If a symbol is given' do
       subject { sample_arr.my_inject :* }
       it 'returns an accumulator executing the operator symbol' do
-        expect(subject).to eq(sample_arr.inject :*)
+        expect(subject).to eq((sample_arr.inject :*))
       end
     end
 
