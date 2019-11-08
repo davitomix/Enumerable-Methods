@@ -24,6 +24,8 @@ Metrics/CyclomaticComplexity:
 Style/BlockComments:
   Enabled: false
 Metrics/PerceivedComplexity:
+  Enable: false
+Lint/Void:
   Enabled: false
 Style/Documentation:
   Enabled: false
