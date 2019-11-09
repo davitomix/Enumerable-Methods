@@ -28,7 +28,7 @@ Metrics/PerceivedComplexity:
 Lint/Void:
   Enabled: false
 Style/Documentation:
-  Enabled: false
+  Enabled: fals
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/IdenticalConditionalBranches:
