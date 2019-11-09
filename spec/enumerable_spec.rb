@@ -120,6 +120,20 @@ describe Enumerable do
         expect(subject).to be true
       end
     end
+
+    context 'If a string is given' do
+      subject { word_arr.my_all?('hello') }
+      it 'it returns false' do
+        expect(subject).to be false
+      end
+    end
+
+    context 'If a number is given' do
+      subject { num_arr.my_all?(5) }
+      it 'returns false' do
+        expect(subject).to be false
+      end
+    end
   end
 
   describe '#my_none?' do
