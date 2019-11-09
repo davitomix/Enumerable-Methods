@@ -1,1 +1,5 @@
 .vscode/*
+spec/enumerable_spec.swp
+*.swp
+.DS_Store
+*DS_Store
