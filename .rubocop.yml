@@ -48,13 +48,3 @@ Style/IfUnlessModifier:
 Style/GuardClause:
   Enabled: false
 Lint/AmbiguousBlockAssociation:
-  Enabled: false
-Metrics/ModuleLength:
-  Enabled: false
-Layout/AlignHash:
-  EnforcedColonStyle: key
-Layout/ExtraSpacing:
-  AllowForAlignment: false
-Layout/MultilineMethodCallIndentation:
-  Enabled: true
-  EnforcedStyle: indented
