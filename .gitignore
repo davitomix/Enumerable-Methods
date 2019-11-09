@@ -1,3 +1,4 @@
 .vscode/*
 spec/*.swp
+*.swp
 .DS_store
