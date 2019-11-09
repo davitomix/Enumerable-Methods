@@ -8,8 +8,8 @@ describe Enumerable do
   let(:mix_arr) { [nil, true, 99] }
   let(:num_arr) { [1, 3.14, 2i] }
   let(:nil_arr) { [] }
-  hash_one = {}
-  hash_two = {}
+  let(:hash_one) { {} }
+  let(:hash_two) { {} }
 
   describe '#my_each' do
     context 'If block is given' do
